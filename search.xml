@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>hexo排坑</title>
+      <link href="/sleepsheep66.githup.io/2020/01/17/hexo%E6%8E%92%E5%9D%91/"/>
+      <url>/sleepsheep66.githup.io/2020/01/17/hexo%E6%8E%92%E5%9D%91/</url>
+      
+        <content type="html"><![CDATA[<p>本文主要记录一些hexo使用的坑，关于怎么配置美化hexo 请参考百度</p><h3 id="hexo排坑"><a href="#hexo排坑" class="headerlink" title="hexo排坑"></a>hexo排坑</h3><h4 id="next主题左侧链接出错"><a href="#next主题左侧链接出错" class="headerlink" title="next主题左侧链接出错"></a>next主题左侧链接出错</h4><p>​    刚配置好hexo时，点击左侧链接报错。链接后面跟了一些没用的东西</p><p>原因是因为在配置next 的 _config.xml文件时</p><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">menu:</span></span><br><span class="line"><span class="symbol">  home:</span> /|| home</span><br><span class="line"><span class="symbol">  about:</span> <span class="meta-keyword">/about/</span>|| user</span><br><span class="line"><span class="symbol">  tags:</span> <span class="meta-keyword">/tags/</span>|| tags</span><br><span class="line"><span class="symbol">  categories:</span> <span class="meta-keyword">/categories/</span>|| th</span><br><span class="line"><span class="symbol">  archives:</span> <span class="meta-keyword">/archives/</span>|| archive</span><br><span class="line"><span class="symbol">  schedule:</span> <span class="meta-keyword">/schedule/</span>|| calendar</span><br></pre></td></tr></table></figure><p>​    我们在链接和||中间多打了一个空格，因为背后的js是通过split’||‘[0]获取链接的 所以我们的链接会被多出一个空格来，所以会报错</p><h4 id="关于头像下方日志按钮点击时链接出错"><a href="#关于头像下方日志按钮点击时链接出错" class="headerlink" title="关于头像下方日志按钮点击时链接出错"></a>关于头像下方日志按钮点击时链接出错</h4><p>我们在点击下图红框中的日志链接时因为链接不存在报404错误</p><p><img src="https://github.com/sleepsheep66/sleepsheep66.githup.io" alt="img">/<strong>img</strong>/ 1579233186(1).jpg)</p><p>是因为在 /next/layout/macro/siderbar.swig 里面 </p><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> config.archive_dir != '/' and site.posts.length &gt; 0 %&#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"site-state-item site-state-posts"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.menu.archives %&#125;</span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; url_for(theme.menu.archives).split('||')[0] | trim &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="template-tag">&#123;% <span class="name"><span class="name">else</span></span> %&#125;</span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; url_for(config.archive_dir) &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"site-state-item-count"</span>&gt;</span></span><span class="template-variable">&#123;&#123; site.posts.length &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"site-state-item-name"</span>&gt;</span></span><span class="template-variable">&#123;&#123; __('state.posts') &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  </span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br></pre></td></tr></table></figure><p> A标签中split没有生效导致拆分不成数组，取不到数组第一个值，取得是所有的值 。</p><p> 截取的路径时错误。后面拼上了我们在  config.xml中 menu标签下配置的  </p><p>archives: /archives/|| archive 标签小图标。</p><p>暂时在siderbar.swig中删除多余判断取第二个A标签。可以解决此问题。至于为什么split截取数组没有成功，暂时不知道原因。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 排坑笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/sleepsheep66.githup.io/2020/01/15/hello-world/"/>
       <url>/sleepsheep66.githup.io/2020/01/15/hello-world/</url>
