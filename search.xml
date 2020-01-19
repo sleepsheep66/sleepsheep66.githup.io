@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>hexo next性能优化</title>
-    <url>/sleepsheep66.githup.io/2020/01/19/hexo%20next%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</url>
+    <url>/2020/01/19/hexo%20next%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h2 id="hexo-next性能优化"><a href="#hexo-next性能优化" class="headerlink" title="hexo-next性能优化"></a>hexo-next性能优化</h2><h3 id="1-加载google字体库导致"><a href="#1-加载google字体库导致" class="headerlink" title="1.  加载google字体库导致"></a>1.  加载google字体库导致</h3><p>​    1.到主题的_config.yml中设置不从google加载字体（默认会加载本地字体）设置：</p>
 <figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Uri of fonts host. E.g. <span class="comment">//fonts.googleapis.com (Default).</span></span></span><br><span class="line"><span class="symbol">host:</span> <span class="comment">//fonts.lug.ustc.edu.cn</span></span><br></pre></td></tr></table></figure>
 
@@ -22,7 +22,7 @@
   </entry>
   <entry>
     <title>hexo排坑</title>
-    <url>/sleepsheep66.githup.io/2020/01/17/hexo%E6%8E%92%E5%9D%91/</url>
+    <url>/2020/01/17/hexo%E6%8E%92%E5%9D%91/</url>
     <content><![CDATA[<p>本文主要记录一些hexo使用的坑，关于怎么配置美化hexo 请参考百度</p>
 <h3 id="hexo排坑"><a href="#hexo排坑" class="headerlink" title="hexo排坑"></a>hexo排坑</h3><h4 id="next主题左侧链接出错"><a href="#next主题左侧链接出错" class="headerlink" title="next主题左侧链接出错"></a>next主题左侧链接出错</h4><p>​    刚配置好hexo时，点击左侧链接报错。链接后面跟了一些没用的东西</p>
 <p>原因是因为在配置next 的 _config.xml文件时</p>
@@ -48,7 +48,7 @@
   </entry>
   <entry>
     <title>Hello World</title>
-    <url>/sleepsheep66.githup.io/2020/01/15/hello-world/</url>
+    <url>/2020/01/15/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
