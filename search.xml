@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hexo next性能优化</title>
+    <url>/sleepsheep66.githup.io/2020/01/19/hexo%20next%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="hexo-next性能优化"><a href="#hexo-next性能优化" class="headerlink" title="hexo-next性能优化"></a>hexo-next性能优化</h2><h3 id="1-加载google字体库导致"><a href="#1-加载google字体库导致" class="headerlink" title="1.  加载google字体库导致"></a>1.  加载google字体库导致</h3><p>​    1.到主题的_config.yml中设置不从google加载字体（默认会加载本地字体）设置：</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Uri of fonts host. E.g. <span class="comment">//fonts.googleapis.com (Default).</span></span></span><br><span class="line"><span class="symbol">host:</span> <span class="comment">//fonts.lug.ustc.edu.cn</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-加载评论导致"><a href="#2-加载评论导致" class="headerlink" title="2.加载评论导致"></a>2.加载评论导致</h3><p>​    将自带的CDN改成第三方CDN，本文使用的是valine   </p>
+<p>​    文件目录：next/layout/_third-party/comments/valine.swig 修改为   </p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">//</span>cdn.jsdelivr.net<span class="regexp">/npm/</span>valine<span class="regexp">/dist/</span>Valine.min.js</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-图片懒加载"><a href="#3-图片懒加载" class="headerlink" title="3.图片懒加载"></a>3.图片懒加载</h3>]]></content>
+      <categories>
+        <category>排坑笔记</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo排坑</title>
     <url>/sleepsheep66.githup.io/2020/01/17/hexo%E6%8E%92%E5%9D%91/</url>
     <content><![CDATA[<p>本文主要记录一些hexo使用的坑，关于怎么配置美化hexo 请参考百度</p>
