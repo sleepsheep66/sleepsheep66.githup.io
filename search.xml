@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>关于maven无法下载fastdfs-client-java依赖</title>
+    <url>/2020/03/10/%E5%85%B3%E4%BA%8Efastdfs-client-java%E4%BE%9D%E8%B5%96/</url>
+    <content><![CDATA[<p><strong>因为fastdfs-client-java-1.27-SNAPSHOT.jar这个依赖包在maven中央仓库是没有的。</strong></p>
+<p>需要自己编译源码成jar本地安装到maven 的本地仓库，安装完以后就能正常引用了</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.csource<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastdfs-client-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.27-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-githup上下载需要的jar包源码"><a href="#1-githup上下载需要的jar包源码" class="headerlink" title="1.githup上下载需要的jar包源码"></a>1.githup上下载需要的jar包源码</h4><p>   下载地址： <a href="https://github.com/happyfish100/fastdfs-client-java" target="_blank" rel="noopener">https://github.com/happyfish100/fastdfs-client-java</a> </p>
+<h4 id="2-把下载的包打包到本地maven仓库"><a href="#2-把下载的包打包到本地maven仓库" class="headerlink" title="2.把下载的包打包到本地maven仓库"></a>2.把下载的包打包到本地maven仓库</h4><p>​    进入到下载解压好的文件下，打开命令提示符，输入mvn clean install</p>
+<h4 id="3-更新项目中的maven依赖"><a href="#3-更新项目中的maven依赖" class="headerlink" title="3.更新项目中的maven依赖"></a>3.更新项目中的maven依赖</h4>]]></content>
+      <categories>
+        <category>java编程</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo next性能优化</title>
     <url>/2020/01/19/hexo%20next%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h2 id="hexo-next性能优化"><a href="#hexo-next性能优化" class="headerlink" title="hexo-next性能优化"></a>hexo-next性能优化</h2><h3 id="1-加载google字体库导致"><a href="#1-加载google字体库导致" class="headerlink" title="1.  加载google字体库导致"></a>1.  加载google字体库导致</h3><p>​    1.到主题的_config.yml中设置不从google加载字体（默认会加载本地字体）设置：</p>
@@ -38,6 +55,21 @@
 <p> 截取的路径时错误。后面拼上了我们在  config.xml中 menu标签下配置的  </p>
 <p>archives: /archives/|| archive 标签小图标。</p>
 <p>暂时在siderbar.swig中删除多余判断取第二个A标签。可以解决此问题。至于为什么split截取数组没有成功，暂时不知道原因。</p>
+<h4 id="关于域名和证书的绑定"><a href="#关于域名和证书的绑定" class="headerlink" title="关于域名和证书的绑定"></a>关于域名和证书的绑定</h4><h5 id="购买注册号域名"><a href="#购买注册号域名" class="headerlink" title="购买注册号域名"></a>购买注册号域名</h5><p>首先注册购买域名，本文用的是腾讯云的域名。所以就以腾讯云为例</p>
+<p>购买注册号域名之后，要进行DNS解析。</p>
+<p><img src="/.club//img/hexoDel/1579425144(1).jpg" alt></p>
+<h5 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h5><p>点击快速添加解析。然后设置网站解析。此时需要输入hexo部署的服务器的ip。在这里我们使用的githup的gitpages，所以我们需要ping 一下我们仓库名。例如</p>
+<p><img src="/.club//D:%5Cgithup%5Cmyblog%5Csource%5Cimg%5ChexoDel%5C1579425421(1).png" alt></p>
+<p>然后把得到的服务器IP输入就可以了</p>
+<p>还需要配置一下我们的githup在</p>
+<p><img src="/.club//img/hexoDel/1579425663(1).jpg" alt></p>
+<p>在Custom domain 中填写我们购买好的域名就可以访问了</p>
+<h4 id="关于ssl证书验证添加"><a href="#关于ssl证书验证添加" class="headerlink" title="关于ssl证书验证添加"></a>关于ssl证书验证添加</h4><p>在腾讯云中搜索SSL证书</p>
+<p><img src="/.club//C:%5CUsers%5Clenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1579427509421.png" alt="1579427509421"></p>
+<p>然后申请免费证书 申请好之后需要记录下 把txt格式的记录类型添加记录到DNS解析中</p>
+<p><img src="/.club//D:%5Cgithup%5Cmyblog%5Csource%5Cimg%5ChexoDel%5C1579427739(1).jpg" alt></p>
+<p>下面的格式都与证书给的格式相同就可以</p>
+<p>最后记得选中githuppages的enforce HTTPs 这样就不会在出现烦人的网站不安全了</p>
 ]]></content>
       <categories>
         <category>排坑笔记</category>
