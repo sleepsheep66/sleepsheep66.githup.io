@@ -1,132 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>关于nginx排坑</title>
-      <link href="/2020/03/25/%E5%85%B3%E4%BA%8Enginx%E6%8E%92%E5%9D%91/"/>
-      <url>/2020/03/25/%E5%85%B3%E4%BA%8Enginx%E6%8E%92%E5%9D%91/</url>
-      
-        <content type="html"><![CDATA[<p>因为项目中用到nginx，所以记录一些卡壳严重的地方</p><h4 id="当nginx配置中有很多项目-并且都在80端口时"><a href="#当nginx配置中有很多项目-并且都在80端口时" class="headerlink" title="当nginx配置中有很多项目  并且都在80端口时"></a>当nginx配置中有很多项目  并且都在80端口时</h4><p>当出现上述情况时，其中某一服务的server配置如下</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    #keepalive_requests 120; #单连接请求上限次数。</span><br><span class="line">        listen       80;  #监听端口</span><br><span class="line">        server_name  localhost; #监听地址  </span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location /demo &#123; </span><br><span class="line">rewrite ^/(.*)$ http://localhost:端口号; //重定向</span><br><span class="line">            #root   root; #根目录</span><br><span class="line">            #index  index.html index.htm;  #设置默认页</span><br><span class="line">#proxy_pass http://localhost:端口号;     //代理，不会显示真正的url</span><br><span class="line">#proxy_set_header  X-Real-IP  $remote_addr;</span><br><span class="line">            #proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            #proxy_set_header Host $http_host;</span><br><span class="line">            #proxy_redirect off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>此处的location是监听的 localhost/demo这一串url，记住 /后面的 demo是你tomcat里webapps下面的服务名。因为在一个nginx内如果有很多服务，必须要以服务名区分。而不能直接配置 / </p><h4 id="当server-name名称过长时"><a href="#当server-name名称过长时" class="headerlink" title="当server_name名称过长时"></a>当server_name名称过长时</h4><p>因为有些域名很长，nginx默认的域名长度为32。这种时候就需要在nginx.conf中的http下配置一个server_names_hash_bucket_size 64;这样就不会报错了</p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>linux下安装mysql</title>
+    <url>/2020/03/27/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1linux%E4%B8%8B%E5%AE%89%E8%A3%85mysql/</url>
+    <content><![CDATA[<p>安装时采用的是直接在linux下 下载mysql的方式。还可以直接jar包上传，解压。jar包方式暂不记录。参考了 <a href="https://www.cnblogs.com/sjzxs/p/11362064.html" target="_blank" rel="noopener">https://www.cnblogs.com/sjzxs/p/11362064.html</a> </p>
+<h4 id="linux安装mysql"><a href="#linux安装mysql" class="headerlink" title="linux安装mysql"></a>linux安装mysql</h4><ol>
+<li>执行命令rpm -qa | grep mariadb  查看mariadb 安装的rpm包。要卸载 mariadb 否则会冲突</li>
+<li>行命令rpm -e –nodeps mariadb-libs-5.5.56-2.el7.x86_64   rpm -e –nodeps意思是强制删除</li>
+<li>添加官方的yum源 创建并编辑mysql-community.repo文件</li>
+</ol>
+<p>　　　　a) vi /etc/yum.repos.d/mysql-community.repo  意思是在/etc/yum.repos.d文件夹下创建mysql-community.repo文件</p>
+<p>　　　　b) 粘贴以下内容到源文件中</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">[mysql56-community]</span><br><span class="line"></span><br><span class="line"><span class="attribute">name</span>=MySQL 5.6<span class="built_in"> Community </span>Server</span><br><span class="line"></span><br><span class="line"><span class="attribute">baseurl</span>=http://repo.mysql.com/yum/mysql-5.6-community/el/7/$basearch/</span><br><span class="line"></span><br><span class="line"><span class="attribute">enabled</span>=1</span><br><span class="line"></span><br><span class="line"><span class="attribute">gpgcheck</span>=0</span><br><span class="line"></span><br><span class="line"><span class="attribute">gpgkey</span>=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>安装mysql数据库  执行 sudo yum install mysql-community-server 命令</p>
+</li>
+<li><p>启动mysql数据库服务 执行  sudo service mysqld start  </p>
+</li>
+<li><p>修改mysql默认root用户密码   mysqladmin -u root -p password 你的新密码 </p>
+<p>这样mysql在linux上就已经装好了 但是还要是mysql可以远程访问。这时就需要修改一些权限</p>
+<h4 id="使mysql可已远程访问"><a href="#使mysql可已远程访问" class="headerlink" title="使mysql可已远程访问"></a>使mysql可已远程访问</h4><ol>
+<li><p>执行mysql –u root –p </p>
+</li>
+<li><p>登录之后  use mysql;  然后修改账号的登录权限  update user set host = ‘%’ where user = ‘root’; </p>
+</li>
+<li><p>最最重要的一句是是  最后一定要执行 FLUSH RIVILEGES 使修改生效. </p>
+<p>还有一些别的授权方法  有兴趣的话可以百度一下</p>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id><a href="#" class="headerlink" title></a></h4>]]></content>
       <categories>
-          
-          <category> nginx </category>
-          
+        <category>linux</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> nginx </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>关于maven无法下载fastdfs-client-java依赖</title>
-      <link href="/2020/03/10/%E5%85%B3%E4%BA%8Efastdfs-client-java%E4%BE%9D%E8%B5%96/"/>
-      <url>/2020/03/10/%E5%85%B3%E4%BA%8Efastdfs-client-java%E4%BE%9D%E8%B5%96/</url>
-      
-        <content type="html"><![CDATA[<p><strong>因为fastdfs-client-java-1.27-SNAPSHOT.jar这个依赖包在maven中央仓库是没有的。</strong></p><p>需要自己编译源码成jar本地安装到maven 的本地仓库，安装完以后就能正常引用了</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.csource<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastdfs-client-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.27-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><h4 id="1-githup上下载需要的jar包源码"><a href="#1-githup上下载需要的jar包源码" class="headerlink" title="1.githup上下载需要的jar包源码"></a>1.githup上下载需要的jar包源码</h4><p>   下载地址： <a href="https://github.com/happyfish100/fastdfs-client-java" target="_blank" rel="noopener">https://github.com/happyfish100/fastdfs-client-java</a> </p><h4 id="2-把下载的包打包到本地maven仓库"><a href="#2-把下载的包打包到本地maven仓库" class="headerlink" title="2.把下载的包打包到本地maven仓库"></a>2.把下载的包打包到本地maven仓库</h4><p>​    进入到下载解压好的文件下，打开命令提示符，输入mvn clean install</p><h4 id="3-更新项目中的maven依赖"><a href="#3-更新项目中的maven依赖" class="headerlink" title="3.更新项目中的maven依赖"></a>3.更新项目中的maven依赖</h4>]]></content>
-      
-      
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于nginx排坑</title>
+    <url>/2020/03/25/%E5%85%B3%E4%BA%8Enginx%E6%8E%92%E5%9D%91/</url>
+    <content><![CDATA[<p>因为项目中用到nginx，所以记录一些卡壳严重的地方</p>
+<h4 id="当nginx配置中有很多项目-并且都在80端口时"><a href="#当nginx配置中有很多项目-并且都在80端口时" class="headerlink" title="当nginx配置中有很多项目  并且都在80端口时"></a>当nginx配置中有很多项目  并且都在80端口时</h4><p>当出现上述情况时，其中某一服务的server配置如下</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	    #keepalive_requests 120; #单连接请求上限次数。</span><br><span class="line">        listen       80;  #监听端口</span><br><span class="line">        server_name  localhost; #监听地址  </span><br><span class="line">		</span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location /demo &#123; </span><br><span class="line">			rewrite ^/(.*)$ http://localhost:端口号; //重定向</span><br><span class="line">            #root   root; #根目录</span><br><span class="line">            #index  index.html index.htm;  #设置默认页</span><br><span class="line">			#proxy_pass http://localhost:端口号;     //代理，不会显示真正的url</span><br><span class="line">			#proxy_set_header  X-Real-IP  $remote_addr;</span><br><span class="line">            #proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            #proxy_set_header Host $http_host;</span><br><span class="line">            #proxy_redirect off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此处的location是监听的 localhost/demo这一串url，记住 /后面的 demo是你tomcat里webapps下面的服务名。因为在一个nginx内如果有很多服务，必须要以服务名区分。而不能直接配置 / </p>
+<h4 id="当server-name名称过长时"><a href="#当server-name名称过长时" class="headerlink" title="当server_name名称过长时"></a>当server_name名称过长时</h4><p>因为有些域名很长，nginx默认的域名长度为32。这种时候就需要在nginx.conf中的http下配置一个server_names_hash_bucket_size 64;这样就不会报错了</p>
+]]></content>
       <categories>
-          
-          <category> java </category>
-          
+        <category>nginx</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> java </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>hexo next性能优化</title>
-      <link href="/2020/01/19/hexo%20next%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/"/>
-      <url>/2020/01/19/hexo%20next%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</url>
-      
-        <content type="html"><![CDATA[<h2 id="hexo-next性能优化"><a href="#hexo-next性能优化" class="headerlink" title="hexo-next性能优化"></a>hexo-next性能优化</h2><h3 id="1-加载google字体库导致"><a href="#1-加载google字体库导致" class="headerlink" title="1.  加载google字体库导致"></a>1.  加载google字体库导致</h3><p>​    1.到主题的_config.yml中设置不从google加载字体（默认会加载本地字体）设置：</p><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Uri of fonts host. E.g. <span class="comment">//fonts.googleapis.com (Default).</span></span></span><br><span class="line"><span class="symbol">host:</span> <span class="comment">//fonts.lug.ustc.edu.cn</span></span><br></pre></td></tr></table></figure><h3 id="2-加载评论导致"><a href="#2-加载评论导致" class="headerlink" title="2.加载评论导致"></a>2.加载评论导致</h3><p>​    将自带的CDN改成第三方CDN，本文使用的是valine   </p><p>​    文件目录：next/layout/_third-party/comments/valine.swig 修改为   </p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span>cdn.jsdelivr.net<span class="regexp">/npm/</span>valine<span class="regexp">/dist/</span>Valine.min.js</span><br></pre></td></tr></table></figure><h3 id="3-图片懒加载"><a href="#3-图片懒加载" class="headerlink" title="3.图片懒加载"></a>3.图片懒加载</h3>]]></content>
-      
-      
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于maven无法下载fastdfs-client-java依赖</title>
+    <url>/2020/03/10/%E5%85%B3%E4%BA%8Efastdfs-client-java%E4%BE%9D%E8%B5%96/</url>
+    <content><![CDATA[<p><strong>因为fastdfs-client-java-1.27-SNAPSHOT.jar这个依赖包在maven中央仓库是没有的。</strong></p>
+<p>需要自己编译源码成jar本地安装到maven 的本地仓库，安装完以后就能正常引用了</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.csource<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastdfs-client-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.27-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-githup上下载需要的jar包源码"><a href="#1-githup上下载需要的jar包源码" class="headerlink" title="1.githup上下载需要的jar包源码"></a>1.githup上下载需要的jar包源码</h4><p>   下载地址： <a href="https://github.com/happyfish100/fastdfs-client-java" target="_blank" rel="noopener">https://github.com/happyfish100/fastdfs-client-java</a> </p>
+<h4 id="2-把下载的包打包到本地maven仓库"><a href="#2-把下载的包打包到本地maven仓库" class="headerlink" title="2.把下载的包打包到本地maven仓库"></a>2.把下载的包打包到本地maven仓库</h4><p>​    进入到下载解压好的文件下，打开命令提示符，输入mvn clean install</p>
+<h4 id="3-更新项目中的maven依赖"><a href="#3-更新项目中的maven依赖" class="headerlink" title="3.更新项目中的maven依赖"></a>3.更新项目中的maven依赖</h4>]]></content>
       <categories>
-          
-          <category> hexo </category>
-          
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>hexo排坑</title>
-      <link href="/2020/01/17/hexo%E6%8E%92%E5%9D%91/"/>
-      <url>/2020/01/17/hexo%E6%8E%92%E5%9D%91/</url>
-      
-        <content type="html"><![CDATA[<p>本文主要记录一些hexo使用的坑，关于怎么配置美化hexo 请参考百度</p><h3 id="hexo排坑"><a href="#hexo排坑" class="headerlink" title="hexo排坑"></a>hexo排坑</h3><h4 id="next主题左侧链接出错"><a href="#next主题左侧链接出错" class="headerlink" title="next主题左侧链接出错"></a>next主题左侧链接出错</h4><p>​    刚配置好hexo时，点击左侧链接报错。链接后面跟了一些没用的东西</p><p>原因是因为在配置next 的 _config.xml文件时</p><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">menu:</span></span><br><span class="line"><span class="symbol">  home:</span> /|| home</span><br><span class="line"><span class="symbol">  about:</span> <span class="meta-keyword">/about/</span>|| user</span><br><span class="line"><span class="symbol">  tags:</span> <span class="meta-keyword">/tags/</span>|| tags</span><br><span class="line"><span class="symbol">  categories:</span> <span class="meta-keyword">/categories/</span>|| th</span><br><span class="line"><span class="symbol">  archives:</span> <span class="meta-keyword">/archives/</span>|| archive</span><br><span class="line"><span class="symbol">  schedule:</span> <span class="meta-keyword">/schedule/</span>|| calendar</span><br></pre></td></tr></table></figure><p>​    我们在链接和||中间多打了一个空格，因为背后的js是通过split’||‘[0]获取链接的 所以我们的链接会被多出一个空格来，所以会报错</p><h4 id="关于头像下方日志按钮点击时链接出错"><a href="#关于头像下方日志按钮点击时链接出错" class="headerlink" title="关于头像下方日志按钮点击时链接出错"></a>关于头像下方日志按钮点击时链接出错</h4><p>我们在点击下图红框中的日志链接时因为链接不存在报404错误</p><p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/1579233186(1).jpg" alt="img"></p><p>是因为在 /next/layout/macro/siderbar.swig 里面 </p><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> config.archive_dir != '/' and site.posts.length &gt; 0 %&#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"site-state-item site-state-posts"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.menu.archives %&#125;</span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; url_for(theme.menu.archives).split('||')[0] | trim &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="template-tag">&#123;% <span class="name"><span class="name">else</span></span> %&#125;</span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; url_for(config.archive_dir) &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"site-state-item-count"</span>&gt;</span></span><span class="template-variable">&#123;&#123; site.posts.length &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"site-state-item-name"</span>&gt;</span></span><span class="template-variable">&#123;&#123; __('state.posts') &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  </span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br></pre></td></tr></table></figure><p> A标签中split没有生效导致拆分不成数组，取不到数组第一个值，取得是所有的值 。</p><p> 截取的路径时错误。后面拼上了我们在  config.xml中 menu标签下配置的  </p><p>archives: /archives/|| archive 标签小图标。</p><p>暂时在siderbar.swig中删除多余判断取第二个A标签。可以解决此问题。至于为什么split截取数组没有成功，暂时不知道原因。</p><h4 id="关于域名和证书的绑定"><a href="#关于域名和证书的绑定" class="headerlink" title="关于域名和证书的绑定"></a>关于域名和证书的绑定</h4><h5 id="购买注册号域名"><a href="#购买注册号域名" class="headerlink" title="购买注册号域名"></a>购买注册号域名</h5><p>首先注册购买域名，本文用的是腾讯云的域名。所以就以腾讯云为例</p><p>购买注册号域名之后，要进行DNS解析。</p><p><img src="/.club//img/hexoDel/1579425144(1).jpg" alt></p><h5 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h5><p>点击快速添加解析。然后设置网站解析。此时需要输入hexo部署的服务器的ip。在这里我们使用的githup的gitpages，所以我们需要ping 一下我们仓库名。例如</p><p><img src="/.club//D:%5Cgithup%5Cmyblog%5Csource%5Cimg%5ChexoDel%5C1579425421(1).png" alt></p><p>然后把得到的服务器IP输入就可以了</p><p>还需要配置一下我们的githup在</p><p><img src="/.club//img/hexoDel/1579425663(1).jpg" alt></p><p>在Custom domain 中填写我们购买好的域名就可以访问了</p><h4 id="关于ssl证书验证添加"><a href="#关于ssl证书验证添加" class="headerlink" title="关于ssl证书验证添加"></a>关于ssl证书验证添加</h4><p>在腾讯云中搜索SSL证书</p><p><img src="/.club//C:%5CUsers%5Clenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1579427509421.png" alt="1579427509421"></p><p>然后申请免费证书 申请好之后需要记录下 把txt格式的记录类型添加记录到DNS解析中</p><p><img src="/.club//D:%5Cgithup%5Cmyblog%5Csource%5Cimg%5ChexoDel%5C1579427739(1).jpg" alt></p><p>下面的格式都与证书给的格式相同就可以</p><p>最后记得选中githuppages的enforce HTTPs 这样就不会在出现烦人的网站不安全了</p>]]></content>
-      
-      
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo next性能优化</title>
+    <url>/2020/01/19/hexo%20next%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="hexo-next性能优化"><a href="#hexo-next性能优化" class="headerlink" title="hexo-next性能优化"></a>hexo-next性能优化</h2><h3 id="1-加载google字体库导致"><a href="#1-加载google字体库导致" class="headerlink" title="1.  加载google字体库导致"></a>1.  加载google字体库导致</h3><p>​    1.到主题的_config.yml中设置不从google加载字体（默认会加载本地字体）设置：</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Uri of fonts host. E.g. <span class="comment">//fonts.googleapis.com (Default).</span></span></span><br><span class="line"><span class="symbol">host:</span> <span class="comment">//fonts.lug.ustc.edu.cn</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-加载评论导致"><a href="#2-加载评论导致" class="headerlink" title="2.加载评论导致"></a>2.加载评论导致</h3><p>​    将自带的CDN改成第三方CDN，本文使用的是valine   </p>
+<p>​    文件目录：next/layout/_third-party/comments/valine.swig 修改为   </p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">//</span>cdn.jsdelivr.net<span class="regexp">/npm/</span>valine<span class="regexp">/dist/</span>Valine.min.js</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-图片懒加载"><a href="#3-图片懒加载" class="headerlink" title="3.图片懒加载"></a>3.图片懒加载</h3>]]></content>
       <categories>
-          
-          <category> hexo </category>
-          
+        <category>hexo</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2020/01/15/hello-world/"/>
-      <url>/2020/01/15/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-      
-      
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo排坑</title>
+    <url>/2020/01/17/hexo%E6%8E%92%E5%9D%91/</url>
+    <content><![CDATA[<p>本文主要记录一些hexo使用的坑，关于怎么配置美化hexo 请参考百度</p>
+<h3 id="hexo排坑"><a href="#hexo排坑" class="headerlink" title="hexo排坑"></a>hexo排坑</h3><h4 id="next主题左侧链接出错"><a href="#next主题左侧链接出错" class="headerlink" title="next主题左侧链接出错"></a>next主题左侧链接出错</h4><p>​    刚配置好hexo时，点击左侧链接报错。链接后面跟了一些没用的东西</p>
+<p>原因是因为在配置next 的 _config.xml文件时</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">menu:</span></span><br><span class="line"><span class="symbol">  home:</span> /|| home</span><br><span class="line"><span class="symbol">  about:</span> <span class="meta-keyword">/about/</span>|| user</span><br><span class="line"><span class="symbol">  tags:</span> <span class="meta-keyword">/tags/</span>|| tags</span><br><span class="line"><span class="symbol">  categories:</span> <span class="meta-keyword">/categories/</span>|| th</span><br><span class="line"><span class="symbol">  archives:</span> <span class="meta-keyword">/archives/</span>|| archive</span><br><span class="line"><span class="symbol">  schedule:</span> <span class="meta-keyword">/schedule/</span>|| calendar</span><br></pre></td></tr></table></figure>
+
+<p>​    我们在链接和||中间多打了一个空格，因为背后的js是通过split’||‘[0]获取链接的 所以我们的链接会被多出一个空格来，所以会报错</p>
+<h4 id="关于头像下方日志按钮点击时链接出错"><a href="#关于头像下方日志按钮点击时链接出错" class="headerlink" title="关于头像下方日志按钮点击时链接出错"></a>关于头像下方日志按钮点击时链接出错</h4><p>我们在点击下图红框中的日志链接时因为链接不存在报404错误</p>
+<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/1579233186(1).jpg" alt="img"></p>
+<p>是因为在 /next/layout/macro/siderbar.swig 里面 </p>
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> config.archive_dir != '/' and site.posts.length &gt; 0 %&#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"site-state-item site-state-posts"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.menu.archives %&#125;</span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; url_for(theme.menu.archives).split('||')[0] | trim &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="template-tag">&#123;% <span class="name"><span class="name">else</span></span> %&#125;</span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; url_for(config.archive_dir) &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"site-state-item-count"</span>&gt;</span></span><span class="template-variable">&#123;&#123; site.posts.length &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"site-state-item-name"</span>&gt;</span></span><span class="template-variable">&#123;&#123; __('state.posts') &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  </span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p> A标签中split没有生效导致拆分不成数组，取不到数组第一个值，取得是所有的值 。</p>
+<p> 截取的路径时错误。后面拼上了我们在  config.xml中 menu标签下配置的  </p>
+<p>archives: /archives/|| archive 标签小图标。</p>
+<p>暂时在siderbar.swig中删除多余判断取第二个A标签。可以解决此问题。至于为什么split截取数组没有成功，暂时不知道原因。</p>
+<h4 id="关于域名和证书的绑定"><a href="#关于域名和证书的绑定" class="headerlink" title="关于域名和证书的绑定"></a>关于域名和证书的绑定</h4><h5 id="购买注册号域名"><a href="#购买注册号域名" class="headerlink" title="购买注册号域名"></a>购买注册号域名</h5><p>首先注册购买域名，本文用的是腾讯云的域名。所以就以腾讯云为例</p>
+<p>购买注册号域名之后，要进行DNS解析。</p>
+<p><img src="/.club//img/hexoDel/1579425144(1).jpg" alt></p>
+<h5 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h5><p>点击快速添加解析。然后设置网站解析。此时需要输入hexo部署的服务器的ip。在这里我们使用的githup的gitpages，所以我们需要ping 一下我们仓库名。例如</p>
+<p><img src="/.club//D:%5Cgithup%5Cmyblog%5Csource%5Cimg%5ChexoDel%5C1579425421(1).png" alt></p>
+<p>然后把得到的服务器IP输入就可以了</p>
+<p>还需要配置一下我们的githup在</p>
+<p><img src="/.club//img/hexoDel/1579425663(1).jpg" alt></p>
+<p>在Custom domain 中填写我们购买好的域名就可以访问了</p>
+<h4 id="关于ssl证书验证添加"><a href="#关于ssl证书验证添加" class="headerlink" title="关于ssl证书验证添加"></a>关于ssl证书验证添加</h4><p>在腾讯云中搜索SSL证书</p>
+<p><img src="/.club//C:%5CUsers%5Clenovo%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1579427509421.png" alt="1579427509421"></p>
+<p>然后申请免费证书 申请好之后需要记录下 把txt格式的记录类型添加记录到DNS解析中</p>
+<p><img src="/.club//D:%5Cgithup%5Cmyblog%5Csource%5Cimg%5ChexoDel%5C1579427739(1).jpg" alt></p>
+<p>下面的格式都与证书给的格式相同就可以</p>
+<p>最后记得选中githuppages的enforce HTTPs 这样就不会在出现烦人的网站不安全了</p>
+]]></content>
       <categories>
-          
-          <category> dreamBegin </category>
-          
+        <category>hexo</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> dreamBegin </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/01/15/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>dreamBegin</category>
+      </categories>
+      <tags>
+        <tag>dreamBegin</tag>
+      </tags>
+  </entry>
 </search>
