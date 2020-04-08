@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>spring源码构建</title>
+    <url>/2020/04/08/spring%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA/</url>
+    <content><![CDATA[<h4 id="IDEA构建spring源码"><a href="#IDEA构建spring源码" class="headerlink" title="IDEA构建spring源码"></a>IDEA构建spring源码</h4><p>1.下载spring源码，可以直接在官网下载（ <a href="https://spring.io/" target="_blank" rel="noopener">https://spring.io/</a> ）</p>
+<p>2.解压zip包后查看spring源码目录下build.gradle文件。（spring4.0以后使用的都是gradle构建的项目。）查看gradle版本号</p>
+<p>3.下载对应版本的gradle（ <a href="https://gradle.org/" target="_blank" rel="noopener">https://gradle.org/</a> ），配置环境变量</p>
+<p>4.最后在spring源码目录下运行 gradlew.bat 文件完成构建</p>
+<h4 id="扩展："><a href="#扩展：" class="headerlink" title="扩展："></a>扩展：</h4><p>​        spring-beans:Bean工厂与装配</p>
+<p>​        spring-context:上下文，即IOC容器</p>
+<p>​        spring-context-support:对IOC的扩展，以及IOC子容器</p>
+<p>​        spring-context-indexer:类管理组件和Classpath扫描</p>
+<p>​        spring-expression:表达式语句</p>
+<p>​        spring-core:核心模块 依赖注入IOC和DI的最基本实现</p>
+<p>​        spring-aop:面向切面编程，CGLB,JDKProxy </p>
+<p>​        spring-aspects:集成AspectJ，Aop应用框架 </p>
+<p>​        spring-instrument:动态Class Loading模块 </p>
+<p>​        spring-jdbc:提供JDBC主要实现模块，用于简化JDBC操作 </p>
+<p>​        spring-tx:spring-jdbc事务管理 </p>
+<p>​        spring-orm:主要集成Hibernate,jpa,jdo等</p>
+<p>​        spring-oxm:将java对象映射成xml数据或将xml映射为java对象 </p>
+<p>​        spring-jms:发送和接受消息  </p>
+<p>​        spring-web:提供了最基础的web支持，主要建立在核心容器上 </p>
+<p>​        spring-webmvc:实现了spring mvc的web应用 </p>
+<p>​        spring-websocket:主要与前端页的全双工通讯协议 </p>
+<p>​        spring-webflux:一个新的非阻塞函数式Reactive Web框架 </p>
+<p>​        spring-messaging:4.0加入的模块，主要集成基础报文传送应用 </p>
+<p>​        spring-test：测试组件 </p>
+<p>​        spring-framework-bom:解决不同模块依赖版本不同问题 </p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux下安装mysql</title>
     <url>/2020/03/27/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1linux%E4%B8%8B%E5%AE%89%E8%A3%85mysql/</url>
     <content><![CDATA[<p>安装时采用的是直接在linux下 下载mysql的方式。还可以直接jar包上传，解压。jar包方式暂不记录。参考了 <a href="https://www.cnblogs.com/sjzxs/p/11362064.html" target="_blank" rel="noopener">https://www.cnblogs.com/sjzxs/p/11362064.html</a> </p>
