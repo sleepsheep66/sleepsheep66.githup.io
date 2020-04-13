@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="nginx," />
+  <meta name="keywords" content="java," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="因为项目中用到nginx，所以记录一些卡壳严重的地方 当nginx配置中有很多项目  并且都在80端口时当出现上述情况时，其中某一服务的server配置如下 12345678910111213141516171819server &amp;#123;	    #keepalive_requests 120; #单连接请求上限次数。        listen       80;  #监听端口">
+<meta name="description" content="创建与销毁对象用静态工厂方法代替构造器  对于类而言，为了获取实例，通常使用提供公有构造器方法   还有一种方法便是类中提供一个公有静态工厂方法，例如 123public static boolean valueof(boolean b)&amp;#123;    return b ? boolean.TRUE:boolean.FALSE;&amp;#125;    不通过公有的构造器 或者说除了公有的构造器之外">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于nginx排坑">
-<meta property="og:url" content="http://xiaoatian.club/2020/03/25/%E5%85%B3%E4%BA%8Enginx%E6%8E%92%E5%9D%91/index.html">
+<meta property="og:title" content="effective java笔记">
+<meta property="og:url" content="http://xiaoatian.club/2020/04/13/effective%20java%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="xiaoAtian blog">
-<meta property="og:description" content="因为项目中用到nginx，所以记录一些卡壳严重的地方 当nginx配置中有很多项目  并且都在80端口时当出现上述情况时，其中某一服务的server配置如下 12345678910111213141516171819server &amp;#123;	    #keepalive_requests 120; #单连接请求上限次数。        listen       80;  #监听端口">
+<meta property="og:description" content="创建与销毁对象用静态工厂方法代替构造器  对于类而言，为了获取实例，通常使用提供公有构造器方法   还有一种方法便是类中提供一个公有静态工厂方法，例如 123public static boolean valueof(boolean b)&amp;#123;    return b ? boolean.TRUE:boolean.FALSE;&amp;#125;    不通过公有的构造器 或者说除了公有的构造器之外">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-25T07:59:47.802Z">
-<meta property="article:modified_time" content="2020-03-25T08:48:05.360Z">
+<meta property="article:published_time" content="2020-04-13T01:20:06.750Z">
+<meta property="article:modified_time" content="2020-04-13T03:11:36.403Z">
 <meta property="article:author" content="xiaoAtian">
-<meta property="article:tag" content="nginx">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://xiaoatian.club/2020/03/25/关于nginx排坑/"/>
+  <link rel="canonical" href="http://xiaoatian.club/2020/04/13/effective java笔记/"/>
 
 
 
 
 
-  <title>关于nginx排坑 | xiaoAtian blog</title>
+  <title>effective java笔记 | xiaoAtian blog</title>
   
 
 
@@ -310,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaoatian.club/2020/03/25/%E5%85%B3%E4%BA%8Enginx%E6%8E%92%E5%9D%91/">
+    <link itemprop="mainEntityOfPage" href="http://xiaoatian.club/2020/04/13/effective%20java%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xiaoAtian">
@@ -327,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">关于nginx排坑</h1>
+          <h1 class="post-title" itemprop="name headline">effective java笔记</h1>
         
 
         <div class="post-meta">
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-25T15:59:47+08:00">
-                2020-03-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-13T09:20:06+08:00">
+                2020-04-13
               </time>
             
 
@@ -362,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">nginx</span>
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -380,8 +380,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/03/25/%E5%85%B3%E4%BA%8Enginx%E6%8E%92%E5%9D%91/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/25/%E5%85%B3%E4%BA%8Enginx%E6%8E%92%E5%9D%91/" itemprop="commentCount"></span>
+                <a href="/2020/04/13/effective%20java%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/13/effective%20java%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -409,12 +409,49 @@
       
 
       
-        <p>因为项目中用到nginx，所以记录一些卡壳严重的地方</p>
-<h4 id="当nginx配置中有很多项目-并且都在80端口时"><a href="#当nginx配置中有很多项目-并且都在80端口时" class="headerlink" title="当nginx配置中有很多项目  并且都在80端口时"></a>当nginx配置中有很多项目  并且都在80端口时</h4><p>当出现上述情况时，其中某一服务的server配置如下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	    #keepalive_requests 120; #单连接请求上限次数。</span><br><span class="line">        listen       80;  #监听端口</span><br><span class="line">        server_name  localhost; #监听地址  </span><br><span class="line">		</span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location /demo &#123; </span><br><span class="line">			rewrite ^/(.*)$ http://localhost:端口号; //重定向</span><br><span class="line">            #root   root; #根目录</span><br><span class="line">            #index  index.html index.htm;  #设置默认页</span><br><span class="line">			#proxy_pass http://localhost:端口号;     //代理，不会显示真正的url</span><br><span class="line">			#proxy_set_header  X-Real-IP  $remote_addr;</span><br><span class="line">            #proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            #proxy_set_header Host $http_host;</span><br><span class="line">            #proxy_redirect off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h4 id="创建与销毁对象"><a href="#创建与销毁对象" class="headerlink" title="创建与销毁对象"></a>创建与销毁对象</h4><h5 id="用静态工厂方法代替构造器"><a href="#用静态工厂方法代替构造器" class="headerlink" title="用静态工厂方法代替构造器"></a>用静态工厂方法代替构造器</h5><p>  对于类而言，为了获取实例，通常使用提供公有构造器方法</p>
+<p>  还有一种方法便是类中提供一个公有静态工厂方法，例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">valueof</span><span class="params">(<span class="keyword">boolean</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b ? <span class="keyword">boolean</span>.TRUE:<span class="keyword">boolean</span>.FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>此处的location是监听的 localhost/demo这一串url，记住 /后面的 demo是你tomcat里webapps下面的服务名。因为在一个nginx内如果有很多服务，必须要以服务名区分。而不能直接配置 / </p>
-<h4 id="当server-name名称过长时"><a href="#当server-name名称过长时" class="headerlink" title="当server_name名称过长时"></a>当server_name名称过长时</h4><p>因为有些域名很长，nginx默认的域名长度为32。这种时候就需要在nginx.conf中的http下配置一个server_names_hash_bucket_size 64;这样就不会报错了</p>
+<p>  不通过公有的构造器 或者说除了公有的构造器之外，类还可以给它的客户端提 </p>
+<p>  供静态工厂方法 提供静态工厂方法而不是公有的构造器。</p>
+<p>  <font color="red">静态工厂方法与构造器不同的第一大优势在于，它们有名称</font></p>
+<p>  如果构造器的参数本 身没有确切地描述正被返回的对象，那么具有适当名称的静态工厂会更容易使用， 产生的 客户端代码也更易于阅读    </p>
+<p>  <font color="red">静态工厂方法与构造器不同的第二大优势在于，不必在每次调用它们的时候都创建一个新对象</font></p>
+<p>  <font color="red">静态工厂方法与构造器不同的第三大优势在子，它们可以返回原返回类型的任何子类型的对象</font></p>
+<p>  <font color="red">静态工厂方法的第四大优势在于，所返回的对象的类可以随着每次调用而发生变化，这取决于静态工厂方法的参数值</font></p>
+<p>  EnumSet 没有公有的构造器，只有静态工厂方法 OpenJDK 实现中，它们返回两种子类之一的 个实例，具体则取决于底层枚举类型的大小：如果它的元素有 64 个或者更少，就像大多数枚举类型一样，静态工厂方法就会返回一个 RegalarEumSet 实例， 用单个 long 进行支持；如果枚举类型有 65 个或者更多元素，工厂就返回 JumboEnumSet 实例，用一个 long 数组进行支持 这两个实现类的存在对于客户端来说是不可见的 如果 RegularEnumSet 不能再给小的枚举类型提供性能优势，就可能从未来的发行版本中将它删除，不会造成任何负面的影同样地，如果事实证明对性能有好处，也可能在未来的发行版本中添加第三甚至第四个EnumSet 实现 客户端永远不知道也不关心它们从工厂方法中得到的对象的类，它们只关 心它是 EnumSet 的某个子类</p>
+<p>  <font color="red">静态工厂方法的第五大优势在于，方法返回的对象所属的类，在编写包含该静态工厂方法的类时可以不存在</font></p>
+<p>  这种灵活的静态工厂方法构成了服务提供者框架（ Service Provider  Framework ）的基础，例如 JDBC(Java 数据库连接）API </p>
+<p>  <font color="blue">静态工厂方法的主要缺点在于，类如果不含公有的或者受保护的构造器，就不能被子类化</font></p>
+<p>例如，要想将 Collections Framework 中的任何便利的实现类子类 是不可能的 但是这样也许会因祸得福，因为它鼓励程序员使用复合（ omposition ），而 是继承，这正是不可变类型所需要的</p>
+<p>  <font color="blue">静态工厂方法的第二个缺点在于，程序员很难发现它们</font></p>
+<p>例如：</p>
+<p>from 类型转换方法，它只有单个参数，返回该类型的一个相对应的实例，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date d = Date.from(instant) ;</span><br></pre></td></tr></table></figure>
+
+<p>of 聚合方法，带有多个参数，返回该类型的一个实例，把它们合并起来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Rank&gt; faceCards = EnumSet. of (JACK , QUEEN, KING);</span><br></pre></td></tr></table></figure>
+
+<p>valueOf 比 from和of更烦琐的一种替代方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BigInteger prime = Bigintege .valueOf(Integer.MAX_VALUE);</span><br></pre></td></tr></table></figure>
+
+<p>instance 或者 get Instance 返回的实例是通过方法的（如有）参数来描述的，但是不能说与参数具有同样的值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StackWalke luke = StackWalke .getinstance(options);</span><br></pre></td></tr></table></figure>
+
+<p>create 或者 newInstance  像instance 或者 getinstance一样，但 create 或者 newInstance 能够确保每次调用都返回一个新的实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object newArray = Array.newInstance(classObject,arrayLen)</span><br></pre></td></tr></table></figure>
+
+<p>get Type 像getInstance 样，但是在工厂方法处于不同的类中的时候使用。Type表示工厂方法所返回的对象类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FileStore fs = File.getFilestore(path);</span><br></pre></td></tr></table></figure>
+
+<p> newType 像 newinstance 一样，但是在工厂方法处于不同的类中的时候使用。Type 表示工厂方法所返回的对象类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BufferedReade br ＝ Files.newBufferedRead(path);</span><br></pre></td></tr></table></figure>
+
+<p>type getype和newType 的简版</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Complaint&gt; litany = collections.list(legacylitany〕；</span><br></pre></td></tr></table></figure>
+
+<p>​    简而言之，静态工厂方法和公有构造器都各有用处，我们需要理解它们各自的长处，静态工厂经常更 合适，因切忌第一反应就是提供公有的构造器，而不先考虑静态工厂</p>
 
       
     </div>
@@ -432,7 +469,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/nginx/" rel="tag"><i class="fa fa-tag"></i> nginx</a>
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           
         </div>
       
@@ -445,8 +482,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/10/%E5%85%B3%E4%BA%8Efastdfs-client-java%E4%BE%9D%E8%B5%96/" rel="next" title="关于maven无法下载fastdfs-client-java依赖">
-                <i class="fa fa-chevron-left"></i> 关于maven无法下载fastdfs-client-java依赖
+              <a href="/2020/04/08/spring%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA/" rel="next" title="spring源码构建">
+                <i class="fa fa-chevron-left"></i> spring源码构建
               </a>
             
           </div>
@@ -455,8 +492,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/03/27/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1linux%E4%B8%8B%E5%AE%89%E8%A3%85mysql/" rel="prev" title="linux下安装mysql">
-                linux下安装mysql <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/13/Untitled/" rel="prev" title="Untitled">
+                Untitled <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -600,7 +637,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#当nginx配置中有很多项目-并且都在80端口时"><span class="nav-number">1.</span> <span class="nav-text">当nginx配置中有很多项目  并且都在80端口时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当server-name名称过长时"><span class="nav-number">2.</span> <span class="nav-text">当server_name名称过长时</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建与销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建与销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">用静态工厂方法代替构造器</span></a></li></ol></li></ol></div>
             
 
           </div>
