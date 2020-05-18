@@ -1,9 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Untitled</title>
-    <url>/2020/04/13/Untitled/</url>
-    <content><![CDATA[]]></content>
+    <title>linux下创建oracle用户</title>
+    <url>/2020/04/13/linux%E4%B8%8B%E5%88%9B%E5%BB%BAoracle%E7%94%A8%E6%88%B7/</url>
+    <content><![CDATA[<h4 id="linux下创建oracle用户"><a href="#linux下创建oracle用户" class="headerlink" title="linux下创建oracle用户"></a>linux下创建oracle用户</h4><ol>
+<li>登录到linux后。从root切换到oracle</li>
+</ol>
+<p>su -oracle</p>
+<p>   2.登录到oracle 的sys用户</p>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">sqlplus / <span class="keyword">as</span> sysdba</span><br></pre></td></tr></table></figure>
+
+<p>   3.创建表空间</p>
+<p>查询用户表空间文件的路径</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> v$<span class="keyword">datafile</span>;</span><br></pre></td></tr></table></figure>
+
+<p>创建表空间</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLESPACE</span> customerchat <span class="keyword">LOGGING</span> <span class="keyword">DATAFILE</span> <span class="string">'查询出的表空间路径'</span> </span><br><span class="line"><span class="keyword">SIZE</span> <span class="number">100</span>M <span class="keyword">AUTOEXTEND</span> <span class="keyword">ON</span> <span class="keyword">NEXT</span> <span class="number">32</span>M <span class="keyword">MAXSIZE</span> <span class="number">500</span>M <span class="keyword">EXTENT</span> <span class="keyword">MANAGEMENT</span> <span class="keyword">LOCAL</span>;</span><br></pre></td></tr></table></figure>
+
+<p>​    4.创建临时表空间</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> v$tempfile;</span><br></pre></td></tr></table></figure>
+
+<p>创建临时表空间</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">temporary</span> <span class="keyword">tablespace</span> customerchat_temp tempfile <span class="string">'查询出的临时表空间路径'</span></span><br><span class="line"><span class="keyword">size</span> <span class="number">100</span>m <span class="keyword">autoextend</span> <span class="keyword">on</span> <span class="keyword">next</span> <span class="number">32</span>m <span class="keyword">maxsize</span> <span class="number">500</span>m <span class="keyword">extent</span> <span class="keyword">management</span> <span class="keyword">local</span>;</span><br></pre></td></tr></table></figure>
+
+<p>​     5.创建用户</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">create<span class="built_in"> user </span>用户名 identified by 密码<span class="built_in"> default </span>tablespace 表空间名 temporary tablespace 临时表空间名;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><p>为用户添加权限</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">connect</span>,<span class="keyword">resource</span> <span class="keyword">to</span> customerchat;</span><br></pre></td></tr></table></figure>
+
+<p>7.查询已创建的用户</p>
+</li>
+</ol>
+<figure class="highlight n1ql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> username <span class="keyword">from</span> dba_users;</span><br></pre></td></tr></table></figure>
+
+<p>有时候用户会处于锁定状态，解锁用户</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">alter<span class="built_in"> user </span>customerchat account unlock;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>oracle</tag>
+      </tags>
   </entry>
   <entry>
     <title>effective java笔记</title>

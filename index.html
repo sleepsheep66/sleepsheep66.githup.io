@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaoatian.club/2020/04/13/Untitled/">
+    <link itemprop="mainEntityOfPage" href="http://xiaoatian.club/2020/04/13/linux%E4%B8%8B%E5%88%9B%E5%BB%BAoracle%E7%94%A8%E6%88%B7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xiaoAtian">
@@ -325,7 +325,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/13/Untitled/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2020/04/13/linux%E4%B8%8B%E5%88%9B%E5%BB%BAoracle%E7%94%A8%E6%88%B7/" itemprop="url">linux下创建oracle用户</a></h1>
         
 
         <div class="post-meta">
@@ -348,6 +348,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -356,8 +378,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/04/13/Untitled/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/13/Untitled/" itemprop="commentCount"></span>
+                <a href="/2020/04/13/linux%E4%B8%8B%E5%88%9B%E5%BB%BAoracle%E7%94%A8%E6%88%B7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/13/linux%E4%B8%8B%E5%88%9B%E5%BB%BAoracle%E7%94%A8%E6%88%B7/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -387,11 +409,20 @@
       
         
           
-          
-          
+          linux下创建oracle用户
+登录到linux后。从root切换到oracle
+
+su -oracle
+   2.登录到oracle 的sys用户
+1sqlplus / as sysdba
+
+   3.创建表空间
+查询用户表空间文件的路径
+1select name from v$datafile
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/13/Untitled/#more" rel="contents">
+            <a class="btn" href="/2020/04/13/linux%E4%B8%8B%E5%88%9B%E5%BB%BAoracle%E7%94%A8%E6%88%B7/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1777,7 +1808,7 @@ hexo排坑next主题左侧链接出错​    刚配置好hexo时，点击左侧�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
