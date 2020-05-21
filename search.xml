@@ -323,17 +323,17 @@
 <p>暂时在siderbar.swig中删除多余判断取第二个A标签。可以解决此问题。至于为什么split截取数组没有成功，暂时不知道原因。</p>
 <h4 id="关于域名和证书的绑定"><a href="#关于域名和证书的绑定" class="headerlink" title="关于域名和证书的绑定"></a>关于域名和证书的绑定</h4><h5 id="购买注册号域名"><a href="#购买注册号域名" class="headerlink" title="购买注册号域名"></a>购买注册号域名</h5><p>首先注册购买域名，本文用的是腾讯云的域名。所以就以腾讯云为例</p>
 <p>购买注册号域名之后，要进行DNS解析。</p>
-<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579425144(1).jpg" alt></p>
+<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579425144(1).jpg" alt="img"></p>
 <h5 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h5><p>点击快速添加解析。然后设置网站解析。此时需要输入hexo部署的服务器的ip。在这里我们使用的githup的gitpages，所以我们需要ping 一下我们仓库名。例如</p>
-<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579425421(1).png" alt></p>
+<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579425421(1).png" alt="img"></p>
 <p>然后把得到的服务器IP输入就可以了</p>
 <p>还需要配置一下我们的githup在</p>
-<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579425663(1).jpg" alt></p>
+<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579425663(1).jpg" alt="img"></p>
 <p>在Custom domain 中填写我们购买好的域名就可以访问了</p>
 <h4 id="关于ssl证书验证添加"><a href="#关于ssl证书验证添加" class="headerlink" title="关于ssl证书验证添加"></a>关于ssl证书验证添加</h4><p>在腾讯云中搜索SSL证书</p>
-<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579427509421.png" alt="1579427509421"></p>
+<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579427509421.png" alt="img"></p>
 <p>然后申请免费证书 申请好之后需要记录下 把txt格式的记录类型添加记录到DNS解析中</p>
-<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579427739(1).jpg" alt></p>
+<p><img src="https://sleepsheep66.github.io/sleepsheep66.githup.io/img/hexoDel/1579427739(1).jpg" alt="img"></p>
 <p>下面的格式都与证书给的格式相同就可以</p>
 <p>最后记得选中githuppages的enforce HTTPs 这样就不会在出现烦人的网站不安全了</p>
 ]]></content>
